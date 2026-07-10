@@ -1,13 +1,14 @@
 # 📚 Online Bookstore & Library Management System
+
 ### Data Engineering Capstone Project – Medallion Architecture
 
 **Author:** Avantika Chouhan
 
 ---
 
-## 📖 Project Overview
+# 📖 Project Overview
 
-This project implements a complete **Medallion Data Pipeline** for an Online Bookstore & Library Management System using **MySQL**.
+This project implements a complete **Medallion Data Pipeline** for an **Online Bookstore & Library Management System** using **MySQL**.
 
 The pipeline is divided into three layers:
 
@@ -21,26 +22,62 @@ The project demonstrates incremental loading, data quality validation, business 
 
 # 🏗️ Medallion Architecture
 
-## Bronze Layer
+```text
+                    CSV Files
+                         │
+                         ▼
+                ┌─────────────────┐
+                │  Bronze Layer   │
+                │ Raw Data Load   │
+                └─────────────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │  Silver Layer   │
+                │ Clean & Validate│
+                └─────────────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │   Gold Layer    │
+                │ KPI & Analytics │
+                └─────────────────┘
+                         │
+                         ▼
+              Executive Dashboard / BI
+```
+
+---
+
+# 🥉 Bronze Layer
+
 - Raw data ingestion from CSV files
 - Incremental loading
 - Batch tracking
 - Ingestion timestamp
-- No transformations
+- No transformations applied
 
-## Silver Layer
+---
+
+# 🥈 Silver Layer
+
 - Duplicate removal
 - Data cleaning
 - Data validation
 - Invalid record rejection
 - Business rule enforcement
-- Derived columns
+- Order value calculation
+- Loan overdue calculation
 - Data enrichment
 
-## Gold Layer
+---
+
+# 🥇 Gold Layer
+
 Business-ready views for reporting.
 
 ### KPI Views
+
 - Monthly Revenue Growth
 - Customer Retention Rate
 - Book Sell-Through Rate
@@ -48,10 +85,12 @@ Business-ready views for reporting.
 - Review Coverage Rate
 
 ### Analytical Views
-- Top Books by Revenue
+
+- Top Books by Revenue per Genre
 - Customer Segments
 
 ### Pipeline Audit
+
 - Pipeline Health View
 - Overall Pipeline Health Summary
 
@@ -60,30 +99,36 @@ Business-ready views for reporting.
 # 📂 Project Structure
 
 ```text
-dataset/
-    books.csv
-    customers.csv
-    orders.csv
-    loans.csv
-    reviews.csv
-
-docs/
-    pipeline_design.md
-
-sql/
-    00_source_schema.sql
-    task1_schema.sql
-    task2_bronze_load.sql
-    task3_silver_transform.sql
-    task4_gold_views.sql
-    task5_audit.sql
-
-testing/
-    task1_validation.sql
-    task2_validation.sql
-    task3_validation.sql
-    task4_validation.sql
-    task5_validation.sql
+Online-Bookstore-Library-Management-System/
+│
+├── cityreads_dataset/
+│   ├── books.csv
+│   ├── customers.csv
+│   ├── orders.csv
+│   ├── loans.csv
+│   └── reviews.csv
+│
+├── docs/
+│   └── pipeline_design.md
+│
+├── sql/
+│   ├── 00_source_schema.sql
+│   ├── task1_schema.sql
+│   ├── task2_bronze_load.sql
+│   ├── task3_silver_transform.sql
+│   ├── task4_gold_views.sql
+│   └── task5_audit.sql
+│
+├── testing/
+│   ├── task1_validation.sql
+│   ├── task2_validation.sql
+│   ├── task3_validation.sql
+│   ├── task4_validation.sql
+│   └── task5_validation.sql
+│
+├── Dataset_generator.py
+├── README.md
+└── .gitignore
 ```
 
 ---
@@ -94,6 +139,7 @@ testing/
 - SQL
 - Git
 - GitHub
+- CSV
 
 ---
 
@@ -113,27 +159,27 @@ Run the SQL files in the following order:
 
 ---
 
-# 📊 Features
+# 📊 Key Features
 
 - Incremental Data Loading
 - Duplicate Removal
 - Data Validation
 - Rejected Row Tracking
 - Data Enrichment
-- KPI Dashboards
+- Business KPI Views
 - Customer Segmentation
 - Top Books Analysis
 - Pipeline Health Monitoring
+- Medallion Architecture Implementation
 
 ---
 
-# 📌 Deliverables
+# 📦 Deliverables
 
-- Bronze Layer
-- Silver Layer
-- Gold Layer
-- KPI Views
-- Pipeline Audit
+- Bronze Layer Schema & Load Scripts
+- Silver Transformation Scripts
+- Gold KPI Views
+- Pipeline Audit View
 - Validation Scripts
 - Pipeline Design Document
 
@@ -142,3 +188,5 @@ Run the SQL files in the following order:
 # 👩‍💻 Author
 
 **Avantika Chouhan**
+
+
