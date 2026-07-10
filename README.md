@@ -142,5 +142,3 @@ Run the SQL files in the following order:
 # 👩‍💻 Author
 
 **Avantika Chouhan**
-
-Data Engineering Capstone Project
