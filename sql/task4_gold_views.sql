@@ -30,32 +30,42 @@ growth AS
 (
     SELECT
         month,
+
         revenue,
+
         ROUND(
             (
-                (revenue - LAG(revenue) OVER (ORDER BY month))
+                (revenue - LAG(revenue) OVER(ORDER BY month))
                 /
-                LAG(revenue) OVER (ORDER BY month)
+                LAG(revenue) OVER(ORDER BY month)
             ) * 100,
             2
-        ) AS growth_pct
+        ) AS kpi_value
+
     FROM monthly_revenue
 )
 
 SELECT
-MAX(growth_pct) AS kpi_value,
-5 AS kpi_target,
 
-CASE
-    WHEN MAX(growth_pct) >= 5
-    THEN 'PASS'
-    ELSE 'FAIL'
-END AS status,
+    month,
 
-NOW() AS calculated_at
+    kpi_value,
 
-FROM growth;
+    5 AS kpi_target,
 
+    CASE
+        WHEN kpi_value >= 5
+        THEN 'PASS'
+        ELSE 'FAIL'
+    END AS status,
+
+    NOW() AS calculated_at
+
+FROM growth
+
+WHERE kpi_value IS NOT NULL
+
+ORDER BY month;
 -- ==========================================================
 -- KPI 2 : Customer Retention Rate
 -- ==========================================================
@@ -70,7 +80,6 @@ WITH customer_months AS
         customer_id,
         DATE_FORMAT(order_date,'%Y-%m') AS order_month
     FROM silver_orders
-    WHERE status = 'DELIVERED'
 ),
 
 retained_customers AS
@@ -93,8 +102,7 @@ metrics AS
     SELECT
         (SELECT COUNT(*) FROM retained_customers) AS retained,
         (SELECT COUNT(DISTINCT customer_id)
-         FROM silver_orders
-         WHERE status = 'DELIVERED') AS total_customers
+         FROM silver_orders) AS total_customers
 )
 
 SELECT
@@ -169,22 +177,9 @@ DROP VIEW IF EXISTS gold_kpi_return_compliance;
 CREATE VIEW gold_kpi_return_compliance AS
 
 SELECT
+
     ROUND(
-        SUM(
-            CASE
-                WHEN return_date IS NOT NULL
-                     AND return_date <= due_date
-                THEN 1
-                ELSE 0
-            END
-        ) * 100.0 / COUNT(*),
-        2
-    ) AS kpi_value,
-
-    75 AS kpi_target,
-
-    CASE
-        WHEN ROUND(
+        (
             SUM(
                 CASE
                     WHEN return_date IS NOT NULL
@@ -192,7 +187,29 @@ SELECT
                     THEN 1
                     ELSE 0
                 END
-            ) * 100.0 / COUNT(*),
+            ) * 100.0
+        )
+        /
+        COUNT(return_date),
+        2
+    ) AS kpi_value,
+
+    75 AS kpi_target,
+
+    CASE
+        WHEN ROUND(
+            (
+                SUM(
+                    CASE
+                        WHEN return_date IS NOT NULL
+                             AND return_date <= due_date
+                        THEN 1
+                        ELSE 0
+                    END
+                ) * 100.0
+            )
+            /
+            COUNT(return_date),
             2
         ) >= 75
         THEN 'PASS'
