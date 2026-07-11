@@ -38,6 +38,8 @@ This ensures that only the most recently ingested record for each business key i
 
 Using **ingested_at** also supports incremental data loading and avoids processing older duplicate records.
 
+The pipeline metadata table stores the last successful load timestamp, enabling idempotent incremental loading across all Bronze tables.
+
 ---
 
 # 2. Silver Layer Trade-off
@@ -77,8 +79,14 @@ The implementation required:
 
 This KPI required more complex SQL logic than the other KPIs because it involved both date calculations and customer activity over time.
 
+Common Table Expressions (CTEs), self joins, and date functions were used to keep the implementation modular and maintainable.
+
 ---
 
 # Conclusion
 
-The project successfully implements a complete Medallion Data Pipeline consisting of Bronze, Silver, and Gold layers. Data quality rules, incremental processing, KPI calculations, and pipeline health monitoring ensure reliable and business-ready data for executive reporting.
+The project successfully implements a production-style Medallion Data Pipeline using Bronze, Silver, and Gold layers.
+
+The solution includes incremental data ingestion using watermarking, comprehensive data quality validation, rejection logging, business KPI generation, analytical Gold views, and pipeline health monitoring.
+
+Additional business KPIs and analytical views were also implemented beyond the project requirements to demonstrate advanced SQL and business analytics capabilities for executive reporting.

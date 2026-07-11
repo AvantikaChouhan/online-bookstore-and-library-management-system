@@ -9,6 +9,15 @@
 
 USE cityreads;
 -- ==========================================================
+-- NOTE:
+-- Pipeline Health Report validates the data quality and ETL
+-- process from Bronze to Silver layers.
+--
+-- Business KPIs and analytical Gold Views are validated
+-- separately in Task 4 Validation.
+-- ==========================================================
+
+-- ==========================================================
 -- Gold View : Pipeline Health
 -- ==========================================================
 
@@ -168,3 +177,29 @@ SELECT
     END AS pipeline_verdict
 
 FROM gold_pipeline_health;
+-- ==========================================================
+-- Pipeline Status Distribution
+-- ==========================================================
+
+SELECT
+    pipeline_status,
+    COUNT(*) AS total_tables
+FROM gold_pipeline_health
+GROUP BY pipeline_status;
+-- ==========================================================
+-- Highest Rejection Rate Table
+-- ==========================================================
+
+SELECT *
+FROM gold_pipeline_health
+ORDER BY rejection_rate_pct DESC
+LIMIT 1;
+-- ==========================================================
+-- End of Task 5
+-- Pipeline Health Validation Completed
+--
+-- ✔ Pipeline Health View Created
+-- ✔ Overall Pipeline Summary Generated
+-- ✔ Pipeline Status Distribution Validated
+-- ✔ Highest Rejection Rate Table Identified
+-- ==========================================================
