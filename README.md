@@ -288,7 +288,7 @@ The documentation includes:
 
 **Avantika Chouhan**
 
-Data Engineering Capstone Project
+
 
 ---
 
