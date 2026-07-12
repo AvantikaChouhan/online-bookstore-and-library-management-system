@@ -15,30 +15,23 @@ This project follows the Medallion Architecture, where data flows through Bronze
 
 # 1. Watermark Strategy
 
-The **ingested_at** column was selected as the watermark column for all Bronze tables:
+The pipeline uses a source-based watermark strategy to support incremental loading.
 
-- bronze_books
-- bronze_customers
-- bronze_orders
-- bronze_loans
-- bronze_reviews
+The following source timestamp columns were selected:
 
-### Why ingested_at?
+| Table | Watermark Column |
+|--------|------------------|
+| books | published_on |
+| customers | joined_on |
+| orders | order_date |
+| loans | loan_date |
+| reviews | created_at |
 
-The **ingested_at** timestamp records when each record enters the Bronze layer. During Silver transformation, duplicate records are removed using:
+These columns are stored in the `pipeline_metadata` table after every successful pipeline execution.
 
-```sql
-ROW_NUMBER() OVER (
-    PARTITION BY <primary_key>
-    ORDER BY ingested_at DESC
-)
-```
+During each run, only records with a timestamp greater than the stored watermark are loaded into the Bronze layer.
 
-This ensures that only the most recently ingested record for each business key is promoted to the Silver layer.
-
-Using **ingested_at** also supports incremental data loading and avoids processing older duplicate records.
-
-The pipeline metadata table stores the last successful load timestamp, enabling idempotent incremental loading across all Bronze tables.
+The `ingested_at` column is maintained separately as an audit column to record when data entered the Bronze layer. It is also used during Silver-layer deduplication to retain the most recently ingested record.
 
 ---
 
@@ -61,6 +54,8 @@ Instead of deleting these records, they are stored in the **silver_rejected_rows
 
 This approach preserves data lineage and makes the pipeline auditable. It also allows engineers to investigate bad data without affecting clean business data stored in the Silver layer.
 
+This design prioritizes data integrity and auditability over automatic correction, ensuring that only trusted records are promoted to the Silver layer.
+
 ---
 
 # 3. Hardest KPI
@@ -79,7 +74,7 @@ The implementation required:
 
 This KPI required more complex SQL logic than the other KPIs because it involved both date calculations and customer activity over time.
 
-Common Table Expressions (CTEs), self joins, and date functions were used to keep the implementation modular and maintainable.
+Common Table Expressions (CTEs), self joins, window functions, and date functions were used to keep the implementation modular, readable, and maintainable.
 
 ---
 
@@ -89,4 +84,4 @@ The project successfully implements a production-style Medallion Data Pipeline u
 
 The solution includes incremental data ingestion using watermarking, comprehensive data quality validation, rejection logging, business KPI generation, analytical Gold views, and pipeline health monitoring.
 
-Additional business KPIs and analytical views were also implemented beyond the project requirements to demonstrate advanced SQL and business analytics capabilities for executive reporting.
+Beyond the mandatory project requirements, additional KPI views, analytical Gold views, and an Executive Power BI Dashboard were implemented to demonstrate real-world business intelligence and reporting capabilities.

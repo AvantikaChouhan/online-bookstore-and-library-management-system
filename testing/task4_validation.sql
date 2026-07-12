@@ -110,7 +110,7 @@ FROM gold_genre_performance;
 
 -- ==========================================================
 -- Revenue Share Validation
--- (Should be approximately 100%)
+
 -- ==========================================================
 
 SELECT

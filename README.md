@@ -8,15 +8,24 @@
 
 # 📖 Project Overview
 
-This project implements a complete **Medallion Data Pipeline** for an **Online Bookstore & Library Management System** using **MySQL**.
+This project implements a complete **Medallion Data Pipeline** for an **Online Bookstore & Library Management System** using **MySQL** and **Power BI**.
 
-The pipeline is divided into three layers:
+The solution transforms raw operational data into business-ready insights through the **Bronze, Silver, and Gold** layers, followed by an interactive Executive Dashboard.
 
-- 🥉 Bronze Layer – Raw data ingestion
-- 🥈 Silver Layer – Data cleaning, validation, and enrichment
-- 🥇 Gold Layer – Business KPIs and analytical views
+The project demonstrates end-to-end data engineering concepts including data ingestion, transformation, data quality validation, business KPI generation, pipeline auditing, and business intelligence reporting.
 
-The project demonstrates incremental loading, data quality validation, business transformations, KPI reporting, and pipeline health monitoring.
+---
+
+# 🎯 Project Objectives
+
+- Design a Medallion Architecture data pipeline.
+- Build Bronze, Silver and Gold layers.
+- Implement incremental data loading.
+- Apply data quality validation and enrichment.
+- Generate executive KPI views.
+- Build business analytical views.
+- Monitor pipeline health.
+- Develop an interactive Power BI dashboard.
 
 ---
 
@@ -44,25 +53,32 @@ The project demonstrates incremental loading, data quality validation, business 
                 └─────────────────┘
                          │
                          ▼
-              Executive Dashboard / BI
+              Executive Dashboard (Power BI)
 ```
 
 ---
 
 # 🥉 Bronze Layer
 
-- Raw data ingestion from CSV files
+The Bronze layer stores raw operational data without modification.
+
+### Features
+
+- Raw CSV ingestion
 - Incremental loading
 - Batch tracking
-- Ingestion timestamp
-- No transformations applied
+- Ingestion timestamps
+- No transformations
 
 ---
 
 # 🥈 Silver Layer
 
+The Silver layer performs data cleansing, validation, and enrichment.
+
+### Features
+
 - Duplicate removal
-- Data cleaning
 - Data validation
 - Invalid record rejection
 - Business rule enforcement
@@ -74,9 +90,9 @@ The project demonstrates incremental loading, data quality validation, business 
 
 # 🥇 Gold Layer
 
-Business-ready views for reporting.
+The Gold layer provides business-ready analytical views.
 
-### KPI Views
+## KPI Views
 
 - Monthly Revenue Growth
 - Customer Retention Rate
@@ -84,12 +100,20 @@ Business-ready views for reporting.
 - Library Return Compliance
 - Review Coverage Rate
 
-### Analytical Views
+## Additional Business KPIs
+
+- Average Order Value
+- Delivery Success Rate
+- Average Customer Rating
+
+## Analytical Views
 
 - Top Books by Revenue per Genre
 - Customer Segments
+- Top Customers
+- Genre Performance
 
-### Pipeline Audit
+## Pipeline Audit
 
 - Pipeline Health View
 - Overall Pipeline Health Summary
@@ -102,14 +126,14 @@ Business-ready views for reporting.
 Online-Bookstore-Library-Management-System/
 │
 ├── cityreads_dataset/
-│   ├── books.csv
-│   ├── customers.csv
-│   ├── orders.csv
-│   ├── loans.csv
-│   └── reviews.csv
-│
 ├── docs/
-│   └── pipeline_design.md
+│   ├── pipeline_design.md
+│   └── PROJECT_DOCUMENTATION.md
+│
+├── powerbi/
+│   └── CityReads_Executive_Dashboard.pbix
+│
+├── screenshots/
 │
 ├── sql/
 │   ├── 00_source_schema.sql
@@ -127,6 +151,7 @@ Online-Bookstore-Library-Management-System/
 │   └── task5_validation.sql
 │
 ├── Dataset_generator.py
+├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
@@ -135,11 +160,14 @@ Online-Bookstore-Library-Management-System/
 
 # 🛠️ Technologies Used
 
-- MySQL 8.0
+- MySQL Server 8.0
+- MySQL Workbench
+- Power BI Desktop
+- Python
 - SQL
 - Git
 - GitHub
-- CSV
+- CSV Files
 
 ---
 
@@ -161,27 +189,83 @@ Run the SQL files in the following order:
 
 # 📊 Key Features
 
+- Medallion Architecture Implementation
 - Incremental Data Loading
-- Duplicate Removal
-- Data Validation
-- Rejected Row Tracking
+- Data Cleaning & Validation
+- Duplicate Detection
+- Rejected Record Tracking
 - Data Enrichment
 - Business KPI Views
+- Executive Power BI Dashboard
+- Interactive KPI Cards
 - Customer Segmentation
 - Top Books Analysis
+- Revenue & Genre Analytics
+- Top Customers Analysis
 - Pipeline Health Monitoring
-- Medallion Architecture Implementation
 
 ---
 
 # 📦 Deliverables
 
-- Bronze Layer Schema & Load Scripts
-- Silver Transformation Scripts
-- Gold KPI Views
-- Pipeline Audit View
+The repository includes:
+
+- Source Schema
+- Bronze Layer Scripts
+- Silver Layer Scripts
+- Gold Layer KPI Views
+- Pipeline Audit
 - Validation Scripts
 - Pipeline Design Document
+- Project Documentation
+- Power BI Dashboard
+
+---
+
+# 🌟 Additional Enhancements
+
+Beyond the original capstone requirements, the following business enhancements were implemented:
+
+- Average Order Value KPI
+- Delivery Success Rate KPI
+- Average Customer Rating KPI
+- Top Customers Analytical View
+- Genre Performance Analytical View
+- Interactive Executive Power BI Dashboard
+
+These enhancements extend the project beyond the mandatory requirements while demonstrating additional business analytics and reporting capabilities.
+
+---
+
+# 📷 Dashboard Preview
+
+> Add your dashboard screenshot below.
+
+```markdown
+![Executive Dashboard](screenshots/Dashboard/cityreads_dashboard.png)
+```
+
+---
+
+# 📄 Documentation
+
+Detailed project documentation is available in:
+
+```text
+docs/PROJECT_DOCUMENTATION.md
+```
+
+The documentation includes:
+
+- Project Design
+- Task-wise Implementation
+- SQL Logic
+- Business Rules
+- KPI Design
+- Validation Process
+- Dashboard Explanation
+- Assumptions
+- Additional Enhancements
 
 ---
 
@@ -189,4 +273,8 @@ Run the SQL files in the following order:
 
 **Avantika Chouhan**
 
+Data Engineering Capstone Project
 
+---
+
+⭐ Thank you for visiting this repository.
