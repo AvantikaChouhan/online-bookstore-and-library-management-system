@@ -177,13 +177,15 @@ Run the SQL files in the following order:
 
 1. `00_source_schema.sql`
 2. `task1_schema.sql`
-3. `task2_bronze_load.sql`
-4. `task3_silver_transform.sql`
-5. `task3_validation.sql`
-6. `task4_gold_views.sql`
-7. `task4_validation.sql`
-8. `task5_audit.sql`
-9. `task5_validation.sql`
+3. `task1_validation.sql`
+4. `task2_bronze_load.sql`
+5. `task2_validation.sql`
+6. `task3_silver_transform.sql`
+7. `task3_validation.sql`
+8. `task4_gold_views.sql`
+9. `task4_validation.sql`
+10. `task5_audit.sql`
+11. `task5_validation.sql`
 
 ---
 
@@ -210,16 +212,32 @@ Run the SQL files in the following order:
 
 The repository includes:
 
-- Source Schema
-- Bronze Layer Scripts
-- Silver Layer Scripts
-- Gold Layer KPI Views
-- Pipeline Audit
-- Validation Scripts
-- Pipeline Design Document
-- Project Documentation
-- Power BI Dashboard
+### SQL Scripts
 
+- Source Schema
+- Task 1 – Schema Creation
+- Task 2 – Bronze Layer
+- Task 3 – Silver Layer
+- Task 4 – Gold Layer
+- Task 5 – Pipeline Audit
+
+### Validation Scripts
+
+- Task 1 Validation
+- Task 2 Validation
+- Task 3 Validation
+- Task 4 Validation
+- Task 5 Validation
+
+### Documentation
+
+- README.md
+- PROJECT_DOCUMENTATION.md
+- pipeline_design.md
+
+### Dashboard
+
+- Executive Power BI Dashboard
 ---
 
 # 🌟 Additional Enhancements
@@ -237,13 +255,10 @@ These enhancements extend the project beyond the mandatory requirements while de
 
 ---
 
-# 📷 Dashboard Preview
 
-> Add your dashboard screenshot below.
+## 📷 Dashboard Preview
 
-```markdown
 ![Executive Dashboard](screenshots/Dashboard/cityreads_dashboard.png)
-```
 
 ---
 

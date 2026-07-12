@@ -15,8 +15,6 @@
 
 # Table of Contents
 
-# Table of Contents
-
 1. Project Overview
 2. Problem Statement
 3. Project Objectives
